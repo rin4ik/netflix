@@ -4,7 +4,6 @@ export default {
     return {
       form: {
         name: "",
-        channel_name: "",
         username: "",
         email: "",
         password: "",

@@ -20,7 +20,9 @@ window.flash = function(message, level = 'success') {
 Vue.component('flash', require('./components/Flash.vue'));
 Vue.component('login', require('./components/Login.vue'));
 Vue.component('register', require('./components/Register.vue'));
-
+Vue.component('video-upload', require('./components/VideoUpload.vue'));
+Vue.component('edit', require('./components/Edit.vue'));
+Vue.component('video-player', require('./components/VideoPlayer.vue'));
 Vue.use(VModal);
 const app = new Vue({
     el: '#app'

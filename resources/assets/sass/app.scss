@@ -3,6 +3,8 @@
 // Variables
 @import "variables";
 // Bootstrap
+@import 'vendor/videojs';
+@import 'components/video';
 @import '~bootstrap/scss/bootstrap';
 @import '~animate.css/animate.min.css';
 @import '~mdbootstrap/css/mdb.min.css';

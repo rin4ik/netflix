@@ -11,10 +11,17 @@
 |
 */
 
+Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
-
-Auth::routes();
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/videos', 'VideoController@index');
+    Route::get('/videos/{video}', 'VideoController@show');
+    Route::put('/videos/{video}', 'VideoController@update');
+    Route::delete('/videos/{video}', 'VideoController@destroy');
+    Route::get('/upload', 'VideoUploadController@index');
+    Route::post('/upload', 'VideoUploadController@store');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
