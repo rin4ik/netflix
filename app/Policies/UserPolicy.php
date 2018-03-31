@@ -16,6 +16,6 @@ class UserPolicy
      */
     public function update(User $user)
     {
-        return $user->curator == 1;
+        return $user->level == 'curator';
     }
 }
