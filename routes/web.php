@@ -15,6 +15,7 @@ Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('/videos/{video}/views', 'VideoViewController@store');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/videos', 'VideoController@index');
     Route::get('/videos/{video}', 'VideoController@show');

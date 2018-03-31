@@ -49061,7 +49061,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         description: this.description,
         visibility: this.visibility
       }).then(function (response) {
-        flash("Changes saved!", "success");
+        flash("Your video succesfully added!", "success");
       }).catch(function (error) {
         _this.feedback = error.response.data.message;
       });
@@ -49779,18 +49779,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       duration: null
     };
   },
-
-  methods: {
-    hasHitQuotaView: function hasHitQuotaView() {
-      if (!this.duration) {
-        return false;
-      }
-      return Math.round(this.player.currentTime()) === Math.round(10 * this.duration / 100);
-    },
-    createView: function createView() {
-      axios.post("/videos/" + this.videoUid + "/views");
-    }
-  },
   mounted: function mounted() {
     var _this = this;
 
@@ -49800,13 +49788,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       playbackRate: [0.5, 1, 1.5, 2, 2.5]
     });
     this.player.on("loadedmetadata", function () {
-      _this.duration = Math.round(_this.player.duration());
+      axios.post("/videos/" + _this.videoUid + "/views").then(function (response) {
+        flash("Changes saved!", "success");
+      }).catch(function (error) {
+        _this.feedback = error.response.data.message;
+      });
     });
-    setInterval(function () {
-      if (_this.hasHitQuotaView()) {
-        _this.createView();
-      }
-    }, 1000);
   }
 });
 

@@ -5,7 +5,7 @@
     controls preload="auto"
      data-setup='{"fluid":true,"playbackRates": [0.5, 1, 1.5, 2,2.5] ]}'
      :poster="thumbnailUrl"> 
-     <source :src="videoUrl" type='video/youtube'>
+     <source :src="videoUrl"  type='video/youtube'>
   </video>
 
 </template>
@@ -25,20 +25,7 @@ export default {
       duration: null
     };
   },
-  methods: {
-    hasHitQuotaView() {
-      if (!this.duration) {
-        return false;
-      }
-      return (
-        Math.round(this.player.currentTime()) ===
-        Math.round(10 * this.duration / 100)
-      );
-    },
-    createView() {
-      axios.post("/videos/" + this.videoUid + "/views");
-    }
-  },
+
   mounted() {
     this.player = videojs("video");
     this.player.hotkeys({
@@ -46,13 +33,15 @@ export default {
       playbackRate: [0.5, 1, 1.5, 2, 2.5]
     });
     this.player.on("loadedmetadata", () => {
-      this.duration = Math.round(this.player.duration());
+      axios
+        .post("/videos/" + this.videoUid + "/views")
+        .then(response => {
+          flash("Changes saved!", "success");
+        })
+        .catch(error => {
+          this.feedback = error.response.data.message;
+        });
     });
-    setInterval(() => {
-      if (this.hasHitQuotaView()) {
-        this.createView();
-      }
-    }, 1000);
   }
 };
 </script>

@@ -69,7 +69,7 @@ export default {
           visibility: this.visibility
         })
         .then(response => {
-          flash("Changes saved!", "success");
+          flash("Your video succesfully added!", "success");
         })
         .catch(error => {
           this.feedback = error.response.data.message;

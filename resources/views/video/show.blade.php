@@ -27,7 +27,7 @@
                    <h4>{{$video->title}}</h4>
                    <div class="pull-right">
                        <div class="video__views">
-                         {{--  //   {{$video->viewCount()}} {{str_plural('view',$video->viewCount())}}  --}}
+               {{$video->viewCount()}} {{str_plural('view',$video->viewCount())}}
                             
                        </div>
                    </div>
