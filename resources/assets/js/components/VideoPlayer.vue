@@ -3,7 +3,7 @@
    id="video"
     class="video-js vjs-default-skin vjs-big-play-centered vjs-16-9"
     controls preload="auto"
-     data-setup='{"fluid":true,"playbackRates": [0.5, 1, 1.5, 2,2.5] ]}'
+     data-setup='{"fluid":true,"playbackRates": [0.5, 1, 1.5, 2,2.5] }'
      :poster="thumbnailUrl"> 
      <source :src="videoUrl"  type='video/youtube'>
   </video>
