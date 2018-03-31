@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+@extends('layouts.app') @section('content')
 
 <div class="container">
     <div class="row justify-content-center">
@@ -9,43 +7,47 @@
                 <div class="card-header">Videos</div>
 
                 <div class="card-body">
-               @forelse($videos  as   $video)
-                <div class="bg-light p-3 mb-4 " style="border:1px solid #e0e0e0; border-radius:5px;"  >
-                   
-                <div class="row" >
-                        <div class="col-sm-3 ">
-                            <a href="/videos/{{$video->uid}}"><img src="{{$video->getThumbnail()}}" class="img-fluid img-thumbnail" alt="{{$video->title}} thumbnail"></a>  
-                        </div>       
-                        <div class="col-sm-9">
-                             <a href="/videos/{{$video->uid}}">{{$video->title}}</a>                
-                        <div class="row">
-                            <div class="col-sm-6">
-                             <p class="text-muted">
-                         
-                                {{$video->created_at->toDateTimeString() }}
-                          <br>  <p>by <b>{{$video->user->name  }}</b></p>
-                        </p>
-                        @can('edit',$video)
-                        <edit :video="{{$video}}" ></edit>
-                        @endcan
-                            </div>
-                            <div class="col-sm-6">
-                                @if($video->visibility == 'public')
-                                <p style="color:green"> {{ucfirst($video->visibility)}}</p>
-                                @elseif($video->visibility == 'private')
-                                <p style="color:red"> {{ucfirst($video->visibility)}}</p>    @else
-                                <p style="color:#888806"> {{ucfirst($video->visibility)}}</p>                                    
-                               @endif         
-                            </div>
-                        </div> 
-                            </div>             
-                </div>    
+                    @forelse($videos as $video)
+                    <div class="bg-light p-3 mb-4 " style="border:1px solid #e0e0e0; border-radius:5px;">
 
-            </div>   
-               @empty
-                <p>You have no videos</p>
-                    @endforelse
-               {{$videos->links()}}
+                        <div class="row">
+                            <div class="col-sm-3 ">
+                                <a href="/videos/{{$video->uid}}">
+                                    <img src="{{$video->getThumbnail()}}" class="img-fluid img-thumbnail" alt="{{$video->title}} thumbnail">
+                                </a>
+                            </div>
+                            <div class="col-sm-9">
+                                <a href="/videos/{{$video->uid}}">{{$video->title}}</a>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="text-muted">
+
+                                            {{$video->created_at->toDateTimeString() }}
+                                            <br>
+                                            <p>by
+                                                <b>{{$video->user->name }}</b>
+                                            </p>
+                                        </p>
+                                        @can('edit',$video)
+                                        <edit :video="{{$video}}"></edit>
+                                        @endcan
+                                    </div>
+                                    <div class="col-sm-6">
+                                        @if($video->visibility == 'public')
+                                        <p style="color:green"> {{ucfirst($video->visibility)}}</p>
+                                        @elseif($video->visibility == 'private')
+                                        <p style="color:red"> {{ucfirst($video->visibility)}}</p> @else
+                                        <p style="color:#888806"> {{ucfirst($video->visibility)}}</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    @empty
+                    <p>There's no videos !</p>
+                    @endforelse {{$videos->links()}}
                 </div>
             </div>
         </div>
