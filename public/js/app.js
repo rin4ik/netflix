@@ -49776,23 +49776,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       player: null,
-      duration: null
+      duration: null,
+      feedback: null
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
     this.player = __WEBPACK_IMPORTED_MODULE_0_video_js___default()("video");
     this.player.hotkeys({
       seekStep: 10,
-      playbackRate: [0.5, 1, 1.5, 2, 2.5]
+      playbackRates: [0.5, 1, 1.5, 2, 2.5]
     });
-    this.player.on("loadedmetadata", function () {
-      axios.post("/videos/" + _this.videoUid + "/views").then(function (response) {
-        flash("Changes saved!", "success");
-      }).catch(function (error) {
-        _this.feedback = error.response.data.message;
-      });
+  },
+  created: function created() {
+    axios.post("/videos/" + this.videoUid + "/views").then(function (response) {
+      flash("Fine!", "success");
+    }).catch(function (error) {
+      flash("Oooops!", "danger");
     });
   }
 });
@@ -75895,7 +75894,7 @@ var render = function() {
         id: "video",
         controls: "",
         preload: "auto",
-        "data-setup": '{"fluid":true,"playbackRates": [0.5, 1, 1.5, 2,2.5] ]}',
+        "data-setup": '{"fluid":true,"playbackRates": [0.5, 1, 1.5, 2,2.5] }',
         poster: _vm.thumbnailUrl
       }
     },

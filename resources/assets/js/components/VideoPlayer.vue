@@ -22,7 +22,8 @@ export default {
   data() {
     return {
       player: null,
-      duration: null
+      duration: null,
+      feedback: null
     };
   },
 
@@ -30,18 +31,18 @@ export default {
     this.player = videojs("video");
     this.player.hotkeys({
       seekStep: 10,
-      playbackRate: [0.5, 1, 1.5, 2, 2.5]
+      playbackRates: [0.5, 1, 1.5, 2, 2.5]
     });
-    this.player.on("loadedmetadata", () => {
-      axios
-        .post("/videos/" + this.videoUid + "/views")
-        .then(response => {
-          flash("Changes saved!", "success");
-        })
-        .catch(error => {
-          this.feedback = error.response.data.message;
-        });
-    });
+  },
+  created() {
+    axios
+      .post("/videos/" + this.videoUid + "/views")
+      .then(response => {
+        flash("Fine!", "success");
+      })
+      .catch(error => {
+        flash("Oooops!", "danger");
+      });
   }
 };
 </script>
